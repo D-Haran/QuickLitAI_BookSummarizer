@@ -40,7 +40,8 @@ export default function Home() {
     const bookTitleAndAuthor = JSON.stringify({
       bookTitleAndAuthor: bookPrompt
     })
-    setIsGenerating(true);
+    try {
+      setIsGenerating(true);
     const res = await fetch("/api/createMessage", {
       method: "POST",
       headers: {
@@ -49,9 +50,15 @@ export default function Home() {
       body: bookTitleAndAuthor,
     });
     setIsGenerating(false);
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
     const data = await res.json();
     setBookSummary(data.bookSummary);
     localStorage.setItem(bookPrompt, data.bookSummary.content)
+    } catch (err) {
+      console.error('An error occurred while fetching the data.', err)
+    }
   };
 
   // useEffect(() => {
