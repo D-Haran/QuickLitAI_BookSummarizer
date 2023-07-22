@@ -18,10 +18,11 @@ const generateDescription = async ({
           }),
         }
       );
+    //   console.log(response)
       const data = await response.json();
       return data.choices[0].message;
     } catch (err) {
-      console.error(err);
+    //   console.error("CREATE MESSAGE: "+err);
     }
   };
   

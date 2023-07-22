@@ -40,7 +40,7 @@ export default function Home() {
     const bookTitleAndAuthor = JSON.stringify({
       bookTitleAndAuthor: bookPrompt
     })
-    console.log(bookTitleAndAuthor)
+    // console.log(bookTitleAndAuthor)
     try {
       setIsGenerating(true);
     const res = await fetch("/api/createMessage", {
@@ -51,12 +51,13 @@ export default function Home() {
       body: bookTitleAndAuthor,
     });
     setIsGenerating(false);
-    console.log("RES: "+res.status)
+    // console.log("RES: "+res.status)
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
     const data = await res.json();
-    setBookSummary(data.bookSummary);
+    // console.log("MESSAGE: "+data.bookSummary)
+    setBookSummary(data.bookSummary.content);
     localStorage.setItem(bookPrompt, data.bookSummary.content)
     } catch (err) {
       console.error('An error occurred while fetching the data.', err)
@@ -146,8 +147,8 @@ export default function Home() {
     </motion.div>
     
     </div>
-    {bookSummary.content && 
-      <div className={styles.summaryContainer} dangerouslySetInnerHTML={{ __html: bookSummary.content }} >
+    {bookSummary != "" && 
+      <div className={styles.summaryContainer} dangerouslySetInnerHTML={{ __html: bookSummary }} >
       </div>
       
     }
