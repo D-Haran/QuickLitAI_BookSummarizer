@@ -40,7 +40,7 @@ export default function Home() {
     const bookTitleAndAuthor = JSON.stringify({
       bookTitleAndAuthor: bookPrompt
     })
-    console(bookTitleAndAuthor)
+    console.log(bookTitleAndAuthor)
     try {
       setIsGenerating(true);
     const res = await fetch("/api/createMessage", {
