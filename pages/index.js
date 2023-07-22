@@ -51,7 +51,7 @@ export default function Home() {
       body: bookTitleAndAuthor,
     });
     setIsGenerating(false);
-    console.log("RES: "+res)
+    console.log("RES: "+res.status)
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
